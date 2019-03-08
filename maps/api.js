@@ -2,7 +2,7 @@ class Api {
     constructor() {
         this.apiDomain = '';
     }
-    get(name, domain = '', usePreTest = false) {
+    get(name) {
         //  const apiDomain = 'http://localhost:3000/';
         const apiDomain = 'https://cryptic-shelf-72241.herokuapp.com/';
         const hostObject = {

@@ -1,17 +1,15 @@
 import {apiRequest  as fetchData } from './fetchData';
 import apiMap from '../maps/api';
 
-let ClientRequestModel = class Model {
+let apiRequestModel = class Model {
     constructor(options) {
         this.name = options.name || '';
         this.path = options.path;
         this.params = options.params || {};
-
     }
 
     dealPath() {
-        const domain = location.hostname;
-        this.path = this.path || apiMap.get(this.name, domain) || '';
+        this.path = this.path || apiMap.get(this.name) || '';
     }
 
     requestData(method) {
@@ -48,4 +46,4 @@ let ClientRequestModel = class Model {
     }
 }
 
-export default ClientRequestModel;
+export default apiRequestModel;

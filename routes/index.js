@@ -2,11 +2,11 @@ var express = require('express');
 var router = express.Router();
 const ReactSSR = require('react-dom/server');
 const path = require('path');
-const ServerEntry = require('../dist/serverDom.bundle.js');
+//  const ServerEntry = require('../dist/serverDom.bundle.js');
 
 const React = require('react');
 //let instance = React.createElement('div', null, 'ddd');
-let instance = React.createElement(ServerEntry, null, 'ddd');
+// let instance = React.createElement(ServerEntry, null, 'ddd');
 //console.log(instance, 'dddddddddddccccccccccc');
 //onst ServerEntry = require('../component/ssrCom');
 const fs = require('fs');

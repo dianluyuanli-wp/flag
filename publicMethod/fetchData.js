@@ -1,19 +1,6 @@
 export function apiRequest(method, url, params, onSuccess, onFail) {
-    const ErrorCode = function (data) {
-        if (data == null) {
-            return 0;
-        }
-        return 'error';
-    };
-
     const success = function (data) {
-        const errorCode = ErrorCode(data);
-
-        if (errorCode == null) {
-            onSuccess(data);
-        } else {
-            onFail(errorCode, data);
-        }
+        onSuccess(data);
     };
 
     const apiError = function (error) {

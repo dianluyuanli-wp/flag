@@ -26,7 +26,7 @@ let serverConfig = {
                     loader: "babel-loader",
                     options: {                //node端的babel编译配置可以简化很多
                         babelrc: false,
-                        presets: ['react',
+                        presets: ["@babel/preset-react",
                             ['env', {
                                 // debug: true,
                                 "targets": {
