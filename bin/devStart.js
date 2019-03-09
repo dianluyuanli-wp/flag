@@ -9,7 +9,7 @@ var debug = require('debug')('weather:server');
 var http = require('http');
 
 var webpack = require('webpack');
-var webpackConfig = require('../webpack.config');
+var webpackConfig = require('../webpack.dev.config');
 var compiler = webpack(webpackConfig);
 
 // 在这里实现自动化打包观察

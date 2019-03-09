@@ -49,7 +49,7 @@ module.exports = {
     plugins: [
         new MiniCssExtractPlugin({      //对css进行打包，webpack4推荐语法
             filename: "[name].css",
-            chunkFilename: "[id].css"
+            chunkFilename: "[name].css"
         }),
         // new CleanWebpackPlugin('dist'),
         // new BundleAnalyzerPlugin({analyzerPort: 3000}),
@@ -124,6 +124,6 @@ module.exports = {
     },
     
     //mode:"production",
-    mode:"development"
+    //mode:"development"
 
 };

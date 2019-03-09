@@ -5,11 +5,12 @@
   "sideEffects": false,
   "scripts": {
     "start": "node ./bin/www",
-    "build": "webpack --color ",
+    "build": "webpack --color --config webpack.pro.config.js",
     "server-build": "webpack --config webpack.server.config.js",
     "watch": "webpack --watch --colors --optimize-minimize",
-    "dev": "node ./bin/devStart" ,
-    "heroku-postbuild": "webpack"
+    "dev-build": "webpack --color --config webpack.dev.config.js",
+    "dev": "node ./bin/devStart",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "@babel/core": "^7.3.4",
