@@ -27,8 +27,8 @@ module.exports = {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
         //libraryTarget: 'commonjs2', //设置导出类型，web端默认是var，node需要module.exports = xxx的形式
-        publicPath: 'http://127.0.0.1:3001/',
-        //publicPath: path.resolve(__dirname, 'dist')
+        //publicPath: 'http://127.0.0.1:3001/',
+        publicPath: path.resolve(__dirname, 'dist')
     },
     devtool: 'inline-source-map',
     optimization: {

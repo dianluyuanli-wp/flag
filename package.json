@@ -7,7 +7,9 @@
     "start": "node ./bin/www",
     "build": "webpack --color ",
     "server-build": "webpack --config webpack.server.config.js",
-    "watch": "webpack --watch --colors --optimize-minimize"
+    "watch": "webpack --watch --colors --optimize-minimize",
+    "dev": "node ./bin/devStart" ,
+    "heroku-postbuild": "webpack"
   },
   "dependencies": {
     "@babel/core": "^7.3.4",
