@@ -1,11 +1,11 @@
 import React from 'react';
-import { Avatar, Select, Radio } from 'antd';
+//Avatar
+import { Radio, Avatar } from 'antd';
 import BaseComponent from '../../baseStructure/baseComponent';
 import { inject, observer } from 'mobx-react';
 import { toJS } from 'mobx';
 import './index.scss';
 
-const Option = Select.Option;
 const RadioGroup = Radio.Group;
 
 @inject("flagStore")

@@ -6,21 +6,21 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 //const uglify_es = require('uglify-es');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin"); //webpack4 替代extract-text-webpack-plugin，将css单独提取打包
 
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+
 module.exports = {
     context: path.resolve(__dirname),
     entry: {
         app:['./static/ComRender.js'],
         weatherCom: ['./component/WeatherApp/index.js'],
-        ssrCom: ['./component/ssrCom/index.js'],
-        ssrTest: ['./static/ssrTest.js'],
-        //?path=/__webpack_hmr&timeout=20000&reload=true
-        //app: './static/ComRender.js',
-        // HMR:'webpack-hot-middleware/client',
+        // ssrCom: ['./component/ssrCom/index.js'],
+        // ssrTest: ['./static/ssrTest.js'],
+        //HMR:'webpack-hot-middleware/client',
         // another: './static/another.js',
         // test: './static/test.js',
-        another: ['./static/another.js'],
-        test: ['./static/test.js']
-
+        // another: ['./static/another.js'],
+        // test: ['./static/test.js'],
+        // vendor: ['react', 'react-dom']
     },
     // entry:['webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000', './static/ComRender.js'],
     output: {
@@ -30,7 +30,6 @@ module.exports = {
         //publicPath: 'http://127.0.0.1:3001/',
         publicPath: path.resolve(__dirname, 'dist')
     },
-    devtool: 'inline-source-map',
     optimization: {
         splitChunks: {
             cacheGroups: {
@@ -51,6 +50,12 @@ module.exports = {
             filename: "[name].css",
             chunkFilename: "[name].css"
         }),
+        // new OptimizeCssAssetsPlugin({
+        //     assetNameRegExp: /\.css$/g,       //一个正则表达式，指示应优化/最小化的资产的名称。提供的正则表达式针对配置中ExtractTextPlugin实例导出的文件的文件名运行，而不是源CSS文件的文件名。默认为/\.css$/g
+        //     cssProcessor: require('cssnano'), //用于优化\最小化CSS的CSS处理器，默认为cssnano
+        //     cssProcessorOptions: { safe: true, discardComments: { removeAll: true } }, //传递给cssProcessor的选项，默认为{}
+        //     canPrint: true                    //一个布尔值，指示插件是否可以将消息打印到控制台，默认为true
+        // }),
         // new CleanWebpackPlugin('dist'),
         // new BundleAnalyzerPlugin({analyzerPort: 3000}),
 
@@ -81,8 +86,8 @@ module.exports = {
                             plugins: [
                                 ['import', {                //这个是为了使用antd的样式
                                     libraryName: 'antd',
-                                    libraryDirectory: 'es',
-                                    style: 'css'
+                                    //libraryDirectory: 'es',
+                                    style: 'css' //'css'
                                 }],
                                 ['@babel/plugin-transform-runtime',
                                 {
@@ -114,7 +119,7 @@ module.exports = {
             {
                 test: /\.less?$/,
                 use: [
-                    //MiniCssExtractPlugin.loader,  //自动提取出css
+                    MiniCssExtractPlugin.loader,  //自动提取出css
                     'style-loader', // 不屏蔽的话会报错
                     'css-loader', 
                     'less-loader',
@@ -122,7 +127,10 @@ module.exports = {
             }
         ]
     },
-    
+    externals: {
+        'react': 'React',
+        'react-dom': 'ReactDOM'
+    }
     //mode:"production",
     //mode:"development"
 

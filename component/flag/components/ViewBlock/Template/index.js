@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button, Row, Col, Select, Card, Checkbox, Input, Form } from 'antd';
+import React from 'react'; //Select
+import { Button, Row, Col, Card, Select, Checkbox, Input, Form } from 'antd';
 import BaseViewComponent from '../../../baseStructure/baseViewComponent';
 import { inject, observer } from 'mobx-react';
 import { toJS } from 'mobx';
@@ -76,14 +76,6 @@ class Template extends BaseViewComponent {
                             <Button onClick={this.addCheckArray}>添加</Button>
                         </Col>
                     </Row>
-                    {/* <Row>
-                        <Col span={4}>
-                            填充内容
-                        </Col>
-                        <Col span={12}>
-                            <Input defaultValue={'buff'}/>
-                        </Col>
-                    </Row> */}
                     <FormItem {...formItemLayout} label={'模板名称'}>
                         <Input placeholder={'请输入内容'} onChange={this.changeInput.bind(this, 'templateName')}/>
                     </FormItem>

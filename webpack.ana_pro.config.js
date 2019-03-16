@@ -1,6 +1,7 @@
 const baseWebpackConfig = require( './webpack.config');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const webpack = require('webpack');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 module.exports = {
     ...baseWebpackConfig,
     plugins: [
@@ -10,6 +11,9 @@ module.exports = {
             cssProcessor: require('cssnano'), //用于优化\最小化CSS的CSS处理器，默认为cssnano
             cssProcessorOptions: { safe: true, discardComments: { removeAll: true } }, //传递给cssProcessor的选项，默认为{}
             canPrint: true                    //一个布尔值，指示插件是否可以将消息打印到控制台，默认为true
+        }),
+        new BundleAnalyzerPlugin({
+            analyzerPort: 8899
         }),
         new webpack.DefinePlugin({
             'process.env': {
