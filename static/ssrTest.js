@@ -6,4 +6,7 @@ import TestCom from '../component/ssrCom';
 ReactDom.hydrate((
     <TestCom />
 ),mountNode);
-export default TestCom;
+// const TestCom = () => {
+//     return (<div>后端渲染测试</div>)
+// }
+// export default TestCom;

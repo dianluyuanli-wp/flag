@@ -1,3 +1,9 @@
+// if(typeof window === 'undefined') {
+//     const fetch = require('node-fetch')
+// }
+//const fetch = require('node-fetch')
+import fetch from 'node-fetch';
+
 export function apiRequest(method, url, params, onSuccess, onFail) {
     const success = function (data) {
         onSuccess(data);
@@ -6,6 +12,7 @@ export function apiRequest(method, url, params, onSuccess, onFail) {
     const apiError = function (error) {
         console.log(error, 'here')
     };
+    //const nodeFetch = require('node-fetch');
 
     const fetchParams = {
         method: method,
@@ -17,6 +24,7 @@ export function apiRequest(method, url, params, onSuccess, onFail) {
     };
 
     console.log(url, fetchParams, JSON.stringify(params));
+    //fetch nodeFetch
     fetch(url, fetchParams).then(function (response) {
         if (response.status < 500) {
             const combine = new Promise(function (resolve) {

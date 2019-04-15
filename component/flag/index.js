@@ -1,15 +1,25 @@
 import React, {Component} from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import flag from './flag';
+//import { Route, Router } from 'react-router-dom';
+//import { createMemoryHistory } from 'history';
+import Flag from './flag';
 
+//history={history}
+//const history = createMemoryHistory();
 class AppRouter extends Component {    
     render() {
+        const isNode = typeof window === 'undefined'; 
         return (
-            <Router>
-                <React.Fragment>
-                    <Route path='/flag.html' component={flag} />
-                </React.Fragment>
-            </Router>
+            <React.Fragment>
+                {isNode ? 
+                    <Flag /> : 
+                    <Router>
+                        <React.Fragment>
+                            <Route path='/flag.html' component={Flag} />
+                        </React.Fragment>
+                    </Router>
+                }
+            </React.Fragment>
         )
     }
 }

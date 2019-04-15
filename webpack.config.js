@@ -12,8 +12,8 @@ module.exports = {
     context: path.resolve(__dirname),
     entry: {
         app:['./static/ComRender.js'],
-        weatherCom: ['./component/WeatherApp/index.js'],
-        // ssrCom: ['./component/ssrCom/index.js'],
+        //weatherCom: ['./component/WeatherApp/index.js'],
+        //ssrCom: ['./static/ssrTest.js'],
         // ssrTest: ['./static/ssrTest.js'],
         //HMR:'webpack-hot-middleware/client',
         // another: './static/another.js',
@@ -33,12 +33,29 @@ module.exports = {
     optimization: {
         splitChunks: {
             cacheGroups: {
+                antd: {
+                    name: 'antd',
+                    test: (module) => {
+                        return /antd|ant-design/g.test(module.context);
+                    },
+                    chunks: 'initial',
+                    priority: 10
+                },
                 commons: {
+                    // name: 'commons',
+                    // chunks: "initial",
+                    // minChunks: 2,
+                    test: /[\\/]node_modules[\\/]/,
                     name: 'commons',
-                    chunks: "initial",
-                    minChunks: 2
+                    chunks: 'initial',
+                    minChunks: 2,
+                    //priority: 2,
+                    // name: true,
+                    // maxSize: 1000000,
+                    // maxInitialRequests: 3,
+                    // maxAsyncRequests: 3
                 }
-            }
+            },
         },
         minimizer: [
             new UglifyJsPlugin(),    // 代码压缩的关键插件

@@ -7,13 +7,13 @@ import { toJS } from 'mobx';
 import './index.scss';
 
 const RadioGroup = Radio.Group;
-
 @inject("flagStore")
 @observer
 class HeaderPanel extends BaseComponent {
     getFunctionSelect = () => {
         return (
-            <RadioGroup defaultValue={this.baseStore.funcType} 
+            <RadioGroup 
+                defaultValue={this.baseStore.funcType} 
                 onChange={this.changeRadio.bind(this, 'funcType')} 
                 className='header-group'>
                 <Radio value={'show-panel'}>展示模式</Radio>
