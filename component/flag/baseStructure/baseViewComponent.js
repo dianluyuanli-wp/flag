@@ -13,6 +13,9 @@ class BaseViewComponent extends React.Component {
     @action.bound changeInput = (props, event) => {
         this.store[props] = event.target.value;
     }
+    @action.bound changeTargetInput = (obj, props, event) => {
+        obj[props] = event.target.value;
+    }
 
     @action.bound changeCheck = (item, props, event) => {
         item[props] = event.target.checked;

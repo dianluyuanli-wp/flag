@@ -1,68 +1,61 @@
+//const nodeExternals = require('webpack-node-externals');
 const path = require('path');
-const webpack = require('webpack');
+const webpack = require("webpack");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-//const uglify_es = require('uglify-es');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin"); //webpack4 替代extract-text-webpack-plugin，将css单独提取打包
 
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-
-module.exports = {
-    context: path.resolve(__dirname),
+let serverConfig = {
+    context: path.join(__dirname),
     entry: {
-        app:['./static/ComRender.js'],
-        //weatherCom: ['./component/WeatherApp/index.js'],
-        //ssrCom: ['./static/ssrTest.js'],
-        // ssrTest: ['./static/ssrTest.js'],
-        //HMR:'webpack-hot-middleware/client',
-        // another: './static/another.js',
-        // test: './static/test.js',
-        // another: ['./static/another.js'],
-        // test: ['./static/test.js'],
-        // vendor: ['react', 'react-dom']
+        serverDom: ['./static/serverEntry.js'],
+        //serverDom: ['./handler/serverRender.js'],
     },
-    // entry:['webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000', './static/ComRender.js'],
     output: {
+        // path: path.join(__dirname, 'dist_server'),
+        // filename: "[name].ssr.js",
+        // libraryTarget: 'commonjs2' //设置导出类型，web端默认是var，node需要module.exports = xxx的形式
+
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        //libraryTarget: 'commonjs2', //设置导出类型，web端默认是var，node需要module.exports = xxx的形式
-        //publicPath: 'http://127.0.0.1:3001/',
-        publicPath: path.resolve(__dirname, 'dist')
+        libraryTarget: 'commonjs2', //设置导出类型，web端默认是var，node需要module.exports = xxx的形式
+        publicPath: 'http://127.0.0.1:3001/',
     },
-    optimization: {
-        splitChunks: {
-            cacheGroups: {
-                antd: {
-                    name: 'antd',
-                    test: (module) => {
-                        return /antd|ant-design/g.test(module.context);
-                    },
-                    chunks: 'initial',
-                    priority: 10
-                },
-                commons: {
-                    // name: 'commons',
-                    // chunks: "initial",
-                    // minChunks: 2,
-                    test: /[\\/]node_modules[\\/]/,
-                    name: 'commons',
-                    chunks: 'initial',
-                    minChunks: 2,
-                    //priority: 2,
-                    // name: true,
-                    // maxSize: 1000000,
-                    // maxInitialRequests: 3,
-                    // maxAsyncRequests: 3
-                }
-            },
-        },
-        minimizer: [
-            new UglifyJsPlugin(),    // 代码压缩的关键插件
-            //uglify_es
-        ],
-    },
+    // optimization: {
+    //     splitChunks: {
+    //         cacheGroups: {
+    //             antd: {
+    //                 name: 'antd',
+    //                 test: (module) => {
+    //                     return /antd|ant-design/g.test(module.context);
+    //                 },
+    //                 chunks: 'initial',
+    //                 priority: 10
+    //             },
+    //             commons: {
+    //                 // name: 'commons',
+    //                 // chunks: "initial",
+    //                 // minChunks: 2,
+    //                 test: /[\\/]node_modules[\\/]/,
+    //                 name: 'commons',
+    //                 chunks: 'initial',
+    //                 minChunks: 2,
+    //                 //priority: 2,
+    //                 // name: true,
+    //                 // maxSize: 1000000,
+    //                 // maxInitialRequests: 3,
+    //                 // maxAsyncRequests: 3
+    //             }
+    //         },
+    //     },
+    //     // minimizer: [
+    //     //     new UglifyJsPlugin(),    // 代码压缩的关键插件
+    //     //     //uglify_es
+    //     // ],
+    // },
     plugins: [
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV) || JSON.stringify('development')
+        }),
         new MiniCssExtractPlugin({      //对css进行打包，webpack4推荐语法
             filename: "[name].css",
             chunkFilename: "[name].css"
@@ -83,7 +76,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(js|jsx)$/,
+                test: /\.jsx?$/,
                 exclude: /node_modules/,
                 use: [
                     {
@@ -124,6 +117,10 @@ module.exports = {
                     }
                 ]
             },
+            // {
+            //     test: /\.(styl|css)$/,          //node端不能 require('xx.css')，会报错
+            //     use: ['null-loader']
+            // },
             {
                 test: /\.(css|scss)$/,
                 use: [
@@ -137,25 +134,21 @@ module.exports = {
                 test: /\.less?$/,
                 use: [
                     MiniCssExtractPlugin.loader,  //自动提取出css
-                    'style-loader', // 不屏蔽的话会报错
+                    //'style-loader', // 不屏蔽的话会报错
                     'css-loader', 
                     'less-loader',
                 ]
             }
         ]
     },
-
     resolve: {
-        alias: {
-            '@network': path.resolve(__dirname, 'utils/network'),
-            '@tools': path.resolve(__dirname, 'utils/tools')
-        }
-    }
-    // externals: {
-    //     'react': 'React',
-    //     'react-dom': 'ReactDOM'
-    // }
-    //mode:"production",
-    //mode:"development"
-
+        extensions: ['.js', '.jsx']
+    },
+    target: 'node',
+    devtool: 'sourcemap',
+    mode:"development"
+    //externals: [nodeExternals()], //不把node_modules中的文件打包
 };
+
+
+module.exports = serverConfig;

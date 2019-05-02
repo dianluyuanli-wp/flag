@@ -3,17 +3,17 @@ class Api {
         this.apiDomain = '';
     }
     get(name) {
-        //  const apiDomain = 'http://localhost:3000/';
-        const apiDomain = 'https://cryptic-shelf-72241.herokuapp.com/';
+        const apiDomain = 'http://localhost:3000/';
+        //const apiDomain = 'https://cryptic-shelf-72241.herokuapp.com/';
         //const apiDomain = 'http://149.129.83.246:81/';
         const hostObject = {
             animal: {
                 api: apiDomain + '123',
                 nickName: '动物接口测试'
             },
-            addTemplate: {
-                api: apiDomain + 'addTemplate',
-                nickName: '提交模板'
+            addOrUpdateTemplate: {
+                api: apiDomain + 'addOrUpdateTemplate',
+                nickName: '新增或更新模板'
             },
             readTemplate: {
                 api: apiDomain + 'readTemplate',
@@ -30,6 +30,14 @@ class Api {
             recentRecord: {
                 api: apiDomain + 'recentRecord',
                 nickName: '拉取最近记录'
+            },
+            addUser: {
+                api: apiDomain + 'addUser',
+                nickName: '添加用户'
+            },
+            verify: {
+                api: apiDomain + 'verify',
+                nickName: '验证用户'
             }
         }
         return hostObject[name] && hostObject[name].api;

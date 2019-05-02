@@ -44,7 +44,7 @@ class ShowPanel extends BaseViewComponent {
         console.log(this.props.store.flagArray, 'content');
         return (
             <React.Fragment>
-                {showCard(this.props.store.flagArray, null, true, false)}
+                {showCard(this.props.store.flagArray, '今日flag', true, false)}
                 <Card title='历史记录' className='body-card card-2'>
                     <Timeline className='time'>
                         {timeLineItem}

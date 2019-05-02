@@ -9,24 +9,27 @@ import FlagContext from '../../component/flag/context';
 
 @observer
 class Flag extends React.Component {
-    getCheckoutBox = (array) => {
-        return array.map((item, index) => {
-            return <Checkbox key={index}>{item.name}</Checkbox>
-        })
-    }
     render() {
-        //const Store = new flagStore({funcType: 'compile-panel'});
-        const Store = new flagStore();
+        //const Store = new flagStore();
         return (
-            <Provider flagStore={Store}>
-                <React.Fragment>
-                    <HeaderPanel />
-                    <FlagContext.Consumer>
-                        { data => (<BodyPanel originData={data}/>)}
-                    </FlagContext.Consumer>
-                </React.Fragment>
-            </Provider>
+            <FlagContext.Consumer>
+                {data => (<Provider flagStore={new flagStore({userName: data.userName})}>
+                    <React.Fragment>
+                        <HeaderPanel />
+                        <BodyPanel originData={data.data}/>
+                    </React.Fragment>
+                </Provider>)}
+            </FlagContext.Consumer>
         )
     }
 }
 export default Flag;
+
+// <Provider flagStore={Store}>
+//     <React.Fragment>
+//         <HeaderPanel />
+//         <FlagContext.Consumer>
+//             { data => (<BodyPanel originData={data}/>)}
+//         </FlagContext.Consumer>
+//     </React.Fragment>
+// </Provider>

@@ -17,51 +17,19 @@ const template = fs.readFileSync(path.join(__dirname,'../views/newSSR.html'),'ut
 
 /* GET home page. */
 
-const getData = async () => {
-    let data = [];
-    let marked = '';
-    let latestRecord = '';
-    const getData = async() => {
-        data = await network.post('readTemplate', {
-            templateName: '模板'
-        },{});
-    }
-    const getMark = async() => {
-        marked = await network.get('isMarked', {}, {});
-        console.log(marked)
-    }
-
-    const getRecord = async() => {
-        latestRecord = await network.get('recentRecord', {}, {});
-        console.log(latestRecord, 'record')
-    }
-    
-    await Promise.all([getData(), getMark(), getRecord()]);
-    if (marked.length > 0) {
-        data.flagArray = marked[0].flagArray;
-        console.log(marked, 'dddddddd');
-        data.isMarked = true;
-    } else {
-        console.log('here!!!!');
-        data.flagArray.map(item => {item.value = false; return item});
-    }
-    data.record = latestRecord;
-    return data;
-}
-
 router.get('/', async function(req, res, next) {
-  const url = req._parsedOriginalUrl.path;
-  let ans = await getData();
-  let instance = React.createElement(() => ServerEntry.default(ans, url), null, 'ddd');
-  const appString = ReactSSR.renderToString(instance);  //  后端渲染测试
+//   //入口文件位置 ./static/serverEntry.js    
+//   const url = req._parsedOriginalUrl.path;
+//   let ans = await getData();
+//   let instance = React.createElement(() => ServerEntry.default(ans, url), null, 'ddd');
+//   const appString = ReactSSR.renderToString(instance);  //  后端渲染测试
 
-  res.send(template.replace('<app></app>',appString));
+//   res.send(template.replace('<app></app>',appString));
 
-  //前端渲染
+//前端渲染
+//入口文件位置 ./static/ComRender.js 
 
-  //res.render('home', { content: 'Express' });
-  //res.render('new', { content: 'Express' });
-  // res.send('ddddddddddddddddddddssssssssssssss');
+  res.render('newSSR', { content: 'Express' });
 });
 
 module.exports = router;

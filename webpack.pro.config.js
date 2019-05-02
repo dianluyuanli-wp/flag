@@ -17,6 +17,10 @@ module.exports = {
             },
          }),
     ],
+    externals: {
+        'react': 'React',
+        'react-dom': 'ReactDOM'
+    },
     devtool: false,
     mode:"production"
 }
