@@ -8,11 +8,13 @@ import ReactDom from 'react-dom';
 import Flag from '../component/flag';
 import FlagContext from '../component/flag/context';
 import network from '@network';
+let ownTool = require('xiaohuli-package');
 import { writeCookie, parseCookie } from '@tools';
 
 const renderFunction = async () => {
     const currentRoute = /(?<=\/).*(?=.html)/g.exec(window.location.pathname)[0];
 
+    console.log(currentRoute);
     //  登录验证
     if(currentRoute === 'flag' && !await verifyLogin()) {
         window.location.href='/login.html'
@@ -50,8 +52,8 @@ const verifyLogin = async () => {
 
 const getFlagData = async() => {
     let data = [];
-    let marked = '';
     let latestRecord = '';
+
     //  获取模板
     const getData = async() => {
         data = await network.post('readTemplate', {
@@ -60,28 +62,19 @@ const getFlagData = async() => {
         if (data === 'not found') {
             data = {};
         }
-        console.log(data,'dataaaaaaaaaaaaa')
     }
-    //  获取今日打卡记录
-    const getMark = async() => {
-        marked = await network.get('isMarked', {}, {});
-        console.log(marked)
-    }
-    //  获取最近几日的打卡记录
     const getRecord = async() => {
         latestRecord = await network.get('recentRecord', {}, {});
-        console.log(latestRecord, 'record')
     }
     
-    await Promise.all([getData(), getMark(), getRecord()]);
-    if (marked.length > 0) {
-        data.flagArray = marked[0].flagArray;
-        console.log(marked, 'dddddddd');
+    await Promise.all([getData(), getRecord()]);
+    if (latestRecord[latestRecord.length -1]?.date ===  ownTool.getYearMonthDate()) {
+        data.flagArray = latestRecord[latestRecord.length -1].flagArray;
         data.isMarked = true;
     } else {
         //  如果没有打卡记录，根据模板生成全false的记录
-        console.log('here!!!!');
-        data.flagArray.map(item => {item.value = false; return item});
+        let targetTemplate = data.templateArray.filter(item => item.name === data.preferTemplate)[0];
+        data.flagArray = targetTemplate.itemArray.map(item => ({name: item, value: false}));
     }
     data.record = latestRecord;
     return {

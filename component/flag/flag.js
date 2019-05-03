@@ -1,8 +1,8 @@
 import React from 'react';
 import { Provider, observer } from 'mobx-react';
 
-import HeaderPanel from './components/HeaderPanel';
-import BodyPanel from './components/BodyPanel';
+import HeaderPanel from './components/flag/HeaderPanel';
+import BodyPanel from './components/flag/BodyPanel';
 import flagStore from './flagStore';
 
 import FlagContext from '../../component/flag/context';
@@ -24,12 +24,3 @@ class Flag extends React.Component {
     }
 }
 export default Flag;
-
-// <Provider flagStore={Store}>
-//     <React.Fragment>
-//         <HeaderPanel />
-//         <FlagContext.Consumer>
-//             { data => (<BodyPanel originData={data}/>)}
-//         </FlagContext.Consumer>
-//     </React.Fragment>
-// </Provider>
