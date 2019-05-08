@@ -65,6 +65,12 @@ let serverConfig = {
     // resolve: {
     //     extensions: ['.js', '.jsx']
     // },
+    resolve: {
+        alias: {
+            '@network': path.resolve(__dirname, 'utils/network'),
+            '@tools': path.resolve(__dirname, 'utils/tools')
+        }
+    },
 
     plugins: [
         new webpack.DefinePlugin({

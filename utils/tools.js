@@ -9,7 +9,7 @@ const writeCookie = (targetObj = {}, expireDays = 20) => {
 
 const parseCookie = () => {
     const result = {};
-    if(!document) {
+    if(typeof document === 'undefined') {
         return {}
     }
     document.cookie.split('; ').map(item => {
@@ -19,5 +19,20 @@ const parseCookie = () => {
     return result;
 }
 
+const parseCookieObjToString = (obj) => {
+    let ans = '';
+    for (let key in obj) {
+        ans += key + '=' + escape(obj[key]) + ';';
+    }
+    return ans;
+}
+
+export {parseCookieObjToString};
 export {writeCookie};
 export {parseCookie};
+
+export default {
+    parseCookieObjToString,
+    writeCookie,
+    parseCookie
+}

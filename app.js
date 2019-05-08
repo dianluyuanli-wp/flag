@@ -8,7 +8,6 @@ var logger = require('morgan');
 var proxy = require('http-proxy-middleware');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
 var app = express();
 app.use(compression());

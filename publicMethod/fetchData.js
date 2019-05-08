@@ -4,7 +4,7 @@
 //const fetch = require('node-fetch')
 import fetch from 'node-fetch';
 
-export function apiRequest(method, url, params, onSuccess, onFail) {
+export function apiRequest(method, url, params, onSuccess, onFail, nodeCookie) {
     const success = function (data) {
         onSuccess(data);
     };
@@ -17,9 +17,9 @@ export function apiRequest(method, url, params, onSuccess, onFail) {
     const fetchParams = {
         method: method,
         body: params == null ? null : JSON.stringify(params).toString(),
-        headers: {
+        headers: Object.assign({}, {
             'Content-Type': params == null ? 'application/x-www-form-urlencoded;charset=UTF-8' : 'application/json;charset=UTF-8'
-        },
+        }, nodeCookie ? {'Cookie': nodeCookie} : {}),
         credentials: 'include'
     };
 

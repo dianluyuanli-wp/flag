@@ -142,7 +142,11 @@ let serverConfig = {
         ]
     },
     resolve: {
-        extensions: ['.js', '.jsx']
+        extensions: ['.js', '.jsx'],
+        alias: {
+            '@network': path.resolve(__dirname, 'utils/network'),
+            '@tools': path.resolve(__dirname, 'utils/tools')
+        }
     },
     target: 'node',
     devtool: 'sourcemap',

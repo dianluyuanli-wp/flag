@@ -6,6 +6,7 @@ let apiRequestModel = class Model {
         this.name = options.name || '';
         this.path = options.path;
         this.params = options.params || {};
+        this.nodeCookie = options.cookie || '';
     }
 
     dealPath() {
@@ -40,7 +41,7 @@ let apiRequestModel = class Model {
                     errorCode,
                     data
                 });
-            });
+            }, me.nodeCookie);
         });
         return promise;
     }
