@@ -26,7 +26,7 @@ router.get('/', async function(req, res, next) {
   let ans = await getDataMap[url.match(/(?<=\/).*(?=\.)/g)[0]](req.cookies);
   let instance = React.createElement(() => ServerEntry.default(ans, url), null, 'ddd');
   const appString = ReactSSR.renderToString(instance);  //  后端渲染测试
-  res.send(template.replace('<app></app>',appString));
+  res.send(template.replace('<app></app>',appString).replace('apiData', JSON.stringify(ans)));
 
   //前端渲染
   //入口文件位置 ./static/ComRender.js 

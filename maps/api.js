@@ -4,8 +4,8 @@ class Api {
     }
     get(name) {
         const apiDomain = 'http://localhost:3000/';
-        //const apiDomain = 'https://cryptic-shelf-72241.herokuapp.com/';
-        //const apiDomain = 'http://149.129.83.246:81/';
+        //const apiDomain = 'http://g.w.com:3000/';
+        //const apiDomain = 'http://149.129.83.246/';
         const hostObject = {
             animal: {
                 api: apiDomain + '123',

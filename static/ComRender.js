@@ -18,7 +18,11 @@ const renderFunction = async () => {
 
     //  挂载组件
     const mountNode = document.getElementById('main');
-    const data = await getDataMap[currentRoute]();
+    // 重新拉接口
+    //const data = await getDataMap[currentRoute]();
+
+    //  直接读后端渲染内容
+    const data = JSON.parse(window.__data);
     ReactDom.render((
         <FlagContext.Provider value={data}>
             <Flag />
