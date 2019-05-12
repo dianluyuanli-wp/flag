@@ -19,7 +19,7 @@ const template = fs.readFileSync(path.join(__dirname,'../views/newSSR.html'),'ut
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
-  //入口文件位置 ./static/serverEntry.js
+  // 入口文件位置 ./static/serverEntry.js
 
   const url = req._parsedOriginalUrl.path;
   console.log(req.cookies, tools.parseCookieObjToString(req.cookies), 'req');
