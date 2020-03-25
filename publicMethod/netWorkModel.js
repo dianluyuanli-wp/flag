@@ -1,4 +1,4 @@
-import {apiRequest  as fetchData } from './fetchData';
+import {apiRequest as fetchData } from './fetchData';
 import apiMap from '../maps/api';
 
 let apiRequestModel = class Model {

@@ -16,6 +16,8 @@ app.use(compression());
 var ejs = require('ejs');
 
 // view engine setup
+//  这个单纯就是为了使用模板语法
+//      <div><%- content %></div> 感觉没意义
 app.engine('.html', ejs.renderFile);
 app.set('views', path.join(__dirname, 'views')); // 这里设定了渲染页面时候的默认路径，views/home
 app.set('view engine', 'html');

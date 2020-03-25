@@ -3,9 +3,9 @@ class Api {
         this.apiDomain = '';
     }
     get(name) {
-        const apiDomain = 'http://localhost:3000/api/';
+        //const apiDomain = 'http://localhost:3000/api/';
         //const apiDomain = 'http://g.w.com:3000/';
-        //const apiDomain = 'http://149.129.83.246/';
+        const apiDomain = 'http://149.129.83.246/api/';
         const hostObject = {
             animal: {
                 api: apiDomain + '123',
